@@ -30,7 +30,7 @@ road24-ai/
 │   ├── clean-code.md            # SOLID, DRY, KISS, YAGNI, style
 │   ├── security.md              # authz/IDOR, injection, secrets/PII, idempotency
 │   └── testing.md               # AAA, behavior-first, mock-at-boundaries
-├── skills/                  # user-invocable recipes (29) — see "Skills by category" below
+├── skills/                  # user-invocable recipes (31) — see "Skills by category" below
 ├── knowledge/
 │   ├── platform-map.md      # the ecosystem: services, stacks, conventions, contracts
 │   └── projects/            # per-project deep-dives (one file per repo) + index
@@ -58,7 +58,7 @@ finding, not a style nit. A repo's own `.claude/concepts/*` win when more specif
 **Skills are stack-specific recipes** — scaffolding differs too much per stack to merge, so each layer
 of each stack gets its own `new-*` skill, plus cross-cutting workflow skills. See the full list below.
 
-## Skills by category (29)
+## Skills by category (31)
 
 **FastAPI services** (insurance, gateway, bff, localization, tinting, sdk)
 `new-fastapi-endpoint` · `new-fastapi-service` · `new-fastapi-repository` · `new-pydantic-schema` ·
@@ -72,7 +72,8 @@ of each stack gets its own `new-*` skill, plus cross-cutting workflow skills. Se
 `new-nest-resource` · `new-nest-test`
 
 **Frontend** (React/Svelte/Vue/RN clients)
-`new-react-feature` · `new-react-hook` · `new-api-client` · `new-frontend-test`
+`new-react-feature` · `new-react-hook` · `new-vue-feature` · `new-svelte-feature` · `new-api-client` ·
+`new-frontend-test`
 
 **Flutter** (road24-mobile)
 `new-flutter-feature` · `new-flutter-test`

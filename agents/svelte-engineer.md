@@ -35,7 +35,8 @@ structure wins when it differs. Violating a concept is a defect, not a nit.
 - Accessibility: semantic markup, labelled controls.
 
 ## Skills
-`new-api-client` (typed call layer — but call it from `load`/`+server.ts`, keep secrets server-side).
+`new-svelte-feature` (route + `+page.server` load/actions / `+server` endpoint, server-only code kept
+server-side) · `new-api-client` (typed call layer — call it from `load`/`+server`, keep secrets server-side).
 
 ## Commands
 `npm run dev` · `npm run check` (svelte-check) · `npm run lint` · `npm run format` · `npm run build`.

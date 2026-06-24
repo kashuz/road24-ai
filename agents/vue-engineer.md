@@ -33,7 +33,8 @@ when it differs. Violating a concept is a defect, not a nit.
 - Localize user-facing strings; handle loading/empty/error states.
 
 ## Skills
-`new-api-client` (typed axios layer + DTO types — adapt to the repo's store/composables).
+`new-vue-feature` (script-setup SFC + composable + API layer + route) · `new-api-client` (typed axios
+layer + DTO types — adapt to the repo's store/composables).
 
 ## Commands
 `npm run dev` · `npm run lint` · `npm run build` (Vite). (`vue.config.js` present — check the actual scripts.)
