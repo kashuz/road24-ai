@@ -1,0 +1,9 @@
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Claude local settings (keep shared agents/skills/concepts/knowledge tracked)
+.claude/settings.local.json
