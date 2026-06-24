@@ -5,7 +5,7 @@ the per-stack application lives in the engineer agents, the skills, and each rep
 `.claude/concepts/*` (which take precedence when they're more specific).
 
 > **Mandate:** every agent reads the concepts relevant to its work in its "Step 0 — Orient" and
-> **obeys them**. The `reviewer` and `security-auditor` enforce them — a change that violates a
+> **obeys them**. The per-language reviewers and `security-auditor` enforce them — a change that violates a
 > concept is a finding. When a repo's own `.claude/concepts/*` conflicts, the **repo's** rule wins
 > (it's more specific); otherwise these apply.
 

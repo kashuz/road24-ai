@@ -35,7 +35,7 @@ engineer applies these as they write. See the `security-audit` skill for the ful
 - **DevOps:** no secrets in images/logs/pipelines; pinned non-root containers; TLS; tight CORS; k8s
   secrets via Secret/external store; minimal `GITHUB_TOKEN`/RBAC scopes.
 
-## Hard rules (reviewer + security-auditor enforce)
+## Hard rules (reviewers + security-auditor enforce)
 
 - Every endpoint authenticates + authorizes the specific object touched (IDOR check).
 - All external input validated; all queries parameterized; all outbound URLs allow-listed.

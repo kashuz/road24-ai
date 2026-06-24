@@ -13,8 +13,9 @@ dirs under `~/work` hold project-local config; this hub holds what's shared.
 - `knowledge/platform-map.md` — the map of every service, its stack, architecture, and the shared
   conventions/contracts.
 - `concepts/` — the **binding architecture rulebook** (clean-architecture, feature-sliced-design,
-  clean-code, security, testing). Every agent obeys the concepts relevant to its work; `reviewer` and
-  `security-auditor` enforce them. A repo's own `.claude/concepts/*` win when more specific.
+  clean-code, security, testing). Every agent obeys the concepts relevant to its work; the
+  per-language reviewers and `security-auditor` enforce them. A repo's own `.claude/concepts/*` win
+  when more specific.
 
 ## Design principles (keep these when editing the hub)
 
@@ -23,8 +24,10 @@ dirs under `~/work` hold project-local config; this hub holds what's shared.
   specifics live in `knowledge/projects/*`, not duplicated into every agent. Don't create one agent
   per repo (25+) — group by stack and lean on the knowledge base.
 - **Architects = split** into `backend-architect` + `frontend-architect`.
-- **Cross-cutting roles = single, stack-aware agents:** `tester`, `reviewer`, `security-auditor`,
-  `devops`, `orchestrator`.
+- **Reviewers = per language:** `python-reviewer`, `typescript-reviewer`, `javascript-reviewer`,
+  `flutter-reviewer` (route each file to its language's reviewer).
+- **Other cross-cutting roles = single, stack-aware agents:** `tester`, `security-auditor`, `devops`,
+  `orchestrator`.
 - **Skills = stack-specific recipes.** Scaffolding differs too much per framework to merge, so each
   stack gets its own `new-*` skill. Plus cross-cutting workflow skills.
 - **Concepts = the binding rulebook.** Stack-agnostic principles in `concepts/`. Agents reference and
