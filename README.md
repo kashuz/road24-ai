@@ -21,7 +21,10 @@ road24-ai/
 │   ├── flutter-engineer.md         # road24-mobile
 │   ├── react-native-engineer.md    # R24NativeInsurance
 │   ├── tester.md                # unit / integration / endpoint tests across stacks
-│   ├── reviewer.md              # read-only review: bugs, security, perf, conventions
+│   ├── python-reviewer.md          # read-only review of .py (FastAPI, Django/DRF)
+│   ├── typescript-reviewer.md      # read-only review of .ts/.tsx (React, Nest, RN, Svelte/Vue TS)
+│   ├── javascript-reviewer.md      # read-only review of plain .js (SvelteKit server, Gatsby, Vue)
+│   ├── flutter-reviewer.md         # read-only review of .dart (BLoC, freezed, dio)
 │   ├── security-auditor.md      # white-box appsec audit (auth, payments, insurance, PII)
 │   └── devops.md                # Docker, CI/CD, k8s/manifests, releases
 ├── concepts/                # the shared architecture rulebook — agents OBEY these
@@ -46,12 +49,14 @@ this scales better than one agent per repo while keeping per-project detail in t
 
 **Architects are split** into `backend-architect` and `frontend-architect`.
 
-**Cross-cutting roles** stay single, stack-aware agents: `tester`, `reviewer`, `security-auditor`,
-`devops`, and the `orchestrator` that delegates across all of the above.
+**Cross-cutting roles** stay single, stack-aware agents: `tester`, `security-auditor`, `devops`, and
+the `orchestrator`. **Reviewers are per language** — `python-reviewer`, `typescript-reviewer`,
+`javascript-reviewer`, `flutter-reviewer` — so a mixed diff routes each file to the reviewer fluent in
+its language.
 
 **The `concepts/` rulebook is binding.** Every agent reads the concepts relevant to its work in
 "Step 0 — Orient" and obeys them — Clean Architecture (backends), Feature-Sliced Design (frontends),
-Clean Code/SOLID, Security, Testing. `reviewer` and `security-auditor` enforce them; a violation is a
+Clean Code/SOLID, Security, Testing. The per-language reviewers and `security-auditor` enforce them; a violation is a
 finding, not a style nit. A repo's own `.claude/concepts/*` win when more specific (precedence is in
 `concepts/README.md`).
 

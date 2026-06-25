@@ -48,7 +48,7 @@ from above. This rule is the whole point — it prevents tangled dependencies.
 | Vue (new-webview) | same layers; `model` uses composables/Pinia |
 | Next.js (fortune) | `app/` or `pages/` is the routing layer; FSD lives under `src/` |
 
-## Hard rules (the reviewer enforces these)
+## Hard rules (the per-language reviewers enforce these)
 
 1. Respect the import direction — higher layer → lower layer only. No upward or sideways (same-layer
    slice→slice) imports.

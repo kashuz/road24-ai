@@ -38,7 +38,7 @@ says *where* code goes; this says *how* it's written.
 - **Immutability** by default (frozen DTOs, freezed models, `const`); avoid shared mutable state.
 - **Pure where possible:** isolate side effects (I/O) in repositories/effects; keep logic pure & testable.
 
-## Hard rules (the reviewer enforces these)
+## Hard rules (the per-language reviewers enforce these)
 
 1. No duplicated logic that should be one function/service; reuse before adding.
 2. No `any`/`!`/`@ts-ignore` in TS; no untyped Python; no magic strings/numbers.

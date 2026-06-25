@@ -31,7 +31,7 @@ is what makes this cheap — test each layer in isolation. Per-stack recipes: `n
   empty/error + error-envelope→field mapping.
 - **Flutter:** `bloc_test` for state sequences, `mocktail` for repositories, widget tests for UI.
 
-## Hard rules (reviewer enforces)
+## Hard rules (the per-language reviewers enforce)
 
 1. New/changed logic ships with tests; the suite must be green before "done".
 2. AAA, one behavior per test, behavior-focused assertions, descriptive names.

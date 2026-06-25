@@ -46,7 +46,7 @@ Data crosses boundaries as **DTOs / schemas**, never as raw request objects or r
 | NestJS (nest-insurances) | Controller (+ DTO) | Service (`@Injectable`) | Repository (TypeORM) |
 | Flutter (road24-mobile) | Widget + BLoC/Cubit | Cubit/Bloc logic | Repository (dio) |
 
-## Hard rules (the reviewer enforces these)
+## Hard rules (the per-language reviewers enforce these)
 
 1. No business logic, ORM queries, or external/HTTP calls in a Router/View/Serializer/Controller/Widget.
 2. Cross every layer boundary with a DTO/schema — never `request.data`/`validated_data`/raw rows.

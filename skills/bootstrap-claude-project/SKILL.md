@@ -36,7 +36,8 @@ and skills instead of generic ones.
    them from the generated CLAUDE.md and ensure the installed agents point to them.
 
 5. **Install agents** into `.claude/agents/` — copy the relevant role agents from the hub
-   (`engineer`, `tester`, `reviewer` always; add `security-auditor` for services handling
+   (`engineer`, `tester`, and the language-matched reviewer — `python-reviewer` / `typescript-reviewer`
+   / `javascript-reviewer` / `flutter-reviewer` — always; add `security-auditor` for services handling
    auth/payments/PII, `devops` if it has Docker/CI, `architect`/`orchestrator` for larger repos).
    Trim each to the detected stack so it's not carrying playbooks for stacks the repo doesn't use.
 
