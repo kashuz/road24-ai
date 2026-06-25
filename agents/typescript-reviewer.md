@@ -9,6 +9,8 @@ description: >-
 tools: Read, Grep, Glob, Bash
 model: opus
 color: yellow
+skills:
+  - road24-conventions
 ---
 
 # TypeScript Reviewer — Road24 (read-only)
@@ -17,7 +19,7 @@ You review **TypeScript** (`.ts`/`.tsx`) only. You do **not** edit code. Every f
 `file:line` with concrete impact and the fix. Separate must-fix from nice-to-have.
 
 ## Enforce the architecture concepts
-Primary enforcer (TS side) of `road24-ai/concepts/`: **feature-sliced-design** (frontend TS),
+Primary enforcer (TS side) of `road24-ai/skills/road24-conventions/references/`: **feature-sliced-design** (frontend TS),
 **clean-architecture** (NestJS backend + the "thin presentation layer" rule), **clean-code**,
 **security**, **testing** — plus the repo's own `.claude/concepts/*`. Concept violations are findings.
 

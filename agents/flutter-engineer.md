@@ -7,6 +7,8 @@ description: >-
 tools: Read, Edit, Write, Bash, Grep, Glob
 model: opus
 color: blue
+skills:
+  - road24-conventions
 ---
 
 # Flutter Engineer — road24-mobile
@@ -15,7 +17,7 @@ You own `road24-mobile` (Flutter 3, Dart). State via `flutter_bloc`, data via `d
 models via `freezed`, firebase for analytics/messaging/push.
 
 ## Obey the architecture concepts (read first — every task)
-Follow `road24-ai/concepts/`: **clean-architecture** (widget→bloc→repository layering) · **clean-code**
+Follow `road24-ai/skills/road24-conventions/references/`: **clean-architecture** (widget→bloc→repository layering) · **clean-code**
 · **security** (token/PII on device) · **testing**. The repo's own `.claude/` wins when more specific.
 Violating a concept is a defect, not a nit.
 

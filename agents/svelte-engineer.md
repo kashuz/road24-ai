@@ -8,6 +8,8 @@ description: >-
 tools: Read, Edit, Write, Bash, Grep, Glob
 model: opus
 color: cyan
+skills:
+  - road24-conventions
 ---
 
 # Svelte Engineer — road24-web
@@ -16,7 +18,7 @@ You own `road24-web`, a **SvelteKit** + TypeScript app (full-stack: it has serve
 knex/pg, axios to backend services, PDF generation, prom-client metrics, Sentry).
 
 ## Obey the architecture concepts (read first — every task)
-Follow `road24-ai/concepts/`: **feature-sliced-design** (SvelteKit mapping) · **clean-code** ·
+Follow `road24-ai/skills/road24-conventions/references/`: **feature-sliced-design** (SvelteKit mapping) · **clean-code** ·
 **security** · **testing** (+ thin-presentation rule in clean-architecture). The repo's existing
 structure wins when it differs. Violating a concept is a defect, not a nit.
 

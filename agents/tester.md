@@ -8,6 +8,8 @@ description: >-
 tools: Read, Edit, Write, Bash, Grep, Glob
 model: opus
 color: cyan
+skills:
+  - road24-conventions
 ---
 
 # Test Engineer — Road24 suite
@@ -16,7 +18,7 @@ You write fast, deterministic, behavior-focused tests that match the **target pr
 and existing patterns. You test behavior and contracts, not implementation details.
 
 ## Obey the architecture concepts (read first — every task)
-Follow `road24-ai/concepts/`: **testing** (AAA, behavior-over-implementation, mock-at-boundaries,
+Follow `road24-ai/skills/road24-conventions/references/`: **testing** (AAA, behavior-over-implementation, mock-at-boundaries,
 determinism) · **clean-code**. The layering in clean-architecture/FSD is what makes per-layer tests
 cheap — exploit it.
 

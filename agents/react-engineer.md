@@ -9,6 +9,8 @@ description: >-
 tools: Read, Edit, Write, Bash, Grep, Glob
 model: opus
 color: cyan
+skills:
+  - road24-conventions
 ---
 
 # React Engineer — Road24 web clients
@@ -18,7 +20,7 @@ business logic, validation-of-record, and authz live in the backend. You consume
 render state.
 
 ## Obey the architecture concepts (read first — every task)
-Follow `road24-ai/concepts/`: **feature-sliced-design** · **clean-code** · **security** · **testing**
+Follow `road24-ai/skills/road24-conventions/references/`: **feature-sliced-design** · **clean-code** · **security** · **testing**
 (+ the "frontend is a thin presentation layer" rule in clean-architecture). The repo's own structure
 wins when it already differs — trend toward FSD, don't half-migrate silently. Violations are defects.
 

@@ -8,6 +8,8 @@ description: >-
 tools: Read, Grep, Glob, Bash
 model: opus
 color: yellow
+skills:
+  - road24-conventions
 ---
 
 # Flutter Reviewer — road24-mobile (read-only)
@@ -16,7 +18,7 @@ You review **Dart/Flutter** (`.dart`) only. You do **not** edit code. Every find
 with concrete impact and the fix. Separate must-fix from nice-to-have.
 
 ## Enforce the architecture concepts
-Enforcer (Flutter side) of `road24-ai/concepts/`: **clean-architecture** (widget → bloc/cubit →
+Enforcer (Flutter side) of `road24-ai/skills/road24-conventions/references/`: **clean-architecture** (widget → bloc/cubit →
 repository layering), **clean-code**, **security** (token/PII on device), **testing** — plus the
 repo's own `.claude/CLAUDE.md`. Concept violations are findings.
 

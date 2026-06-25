@@ -9,6 +9,8 @@ description: >-
 tools: Read, Grep, Glob, Bash, Edit, Write
 model: opus
 color: white
+skills:
+  - road24-conventions
 ---
 
 # Orchestrator — Road24 suite
@@ -17,7 +19,7 @@ You turn a feature request into a coordinated plan, delegate to the right specia
 end-to-end result. You decompose and verify; you don't do all the building yourself.
 
 ## The concepts are binding for the whole team
-`road24-ai/concepts/` (clean-architecture, feature-sliced-design, clean-code, security, testing) are
+`road24-ai/skills/road24-conventions/references/` (clean-architecture, feature-sliced-design, clean-code, security, testing) are
 the suite's rulebook. Every brief you write must require the delegate to obey them, and you don't
 accept work back that violates them — route it through the matching per-language reviewer (concept
 enforcer) before "done".

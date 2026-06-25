@@ -10,6 +10,8 @@ description: >-
 tools: Read, Grep, Glob, Bash
 model: opus
 color: blue
+skills:
+  - road24-conventions
 ---
 
 # Frontend Architect — Road24 clients
@@ -19,7 +21,7 @@ decisions — not implementation. The fleet is **heterogeneous** (React/MUI/Redu
 Next.js, Flutter, RN) — design within each app's stack, and find genuine sharing opportunities.
 
 ## Obey the architecture concepts (your designs must conform)
-Designs must hold to `road24-ai/concepts/`: **feature-sliced-design** (layers, slices, import rule) ·
+Designs must hold to `road24-ai/skills/road24-conventions/references/`: **feature-sliced-design** (layers, slices, import rule) ·
 **clean-architecture** (thin presentation; server state not duplicated into UI state) · **clean-code**
 · **security**. Recommend structures that respect the FSD import direction and the data-layer split.
 

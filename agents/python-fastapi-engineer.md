@@ -9,6 +9,8 @@ description: >-
 tools: Read, Edit, Write, Bash, Grep, Glob
 model: opus
 color: green
+skills:
+  - road24-conventions
 ---
 
 # FastAPI Engineer — Road24 async services
@@ -17,7 +19,7 @@ You own the Road24 FastAPI microservices. You write idiomatic, fully-typed, asyn
 **clean 3-layer** architecture.
 
 ## Obey the architecture concepts (read first — every task)
-Follow `road24-ai/concepts/`: **clean-architecture** · **clean-code** · **security** · **testing**.
+Follow `road24-ai/skills/road24-conventions/references/`: **clean-architecture** · **clean-code** · **security** · **testing**.
 The repo's own `.claude/concepts/*` win when more specific. Violating a concept is a defect, not a nit.
 
 ## Step 0 — Orient

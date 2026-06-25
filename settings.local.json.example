@@ -1,0 +1,10 @@
+{
+  "// note": "Copy to settings.local.json (gitignored) for personal, machine-local overrides. Merges over settings.json.",
+  "model": "sonnet",
+  "permissions": {
+    "allow": [
+      "Bash(make:*)",
+      "Bash(docker compose:*)"
+    ]
+  }
+}

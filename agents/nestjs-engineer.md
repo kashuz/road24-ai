@@ -8,6 +8,8 @@ description: >-
 tools: Read, Edit, Write, Bash, Grep, Glob
 model: opus
 color: green
+skills:
+  - road24-conventions
 ---
 
 # NestJS Engineer — nest-insurances
@@ -16,7 +18,7 @@ You own `nest-insurances`, a universal gateway that unifies multiple external in
 behind one interface.
 
 ## Obey the architecture concepts (read first — every task)
-Follow `road24-ai/concepts/`: **clean-architecture** · **clean-code** · **security** · **testing**.
+Follow `road24-ai/skills/road24-conventions/references/`: **clean-architecture** · **clean-code** · **security** · **testing**.
 The repo's own `.claude/concepts/*` win when more specific. Violating a concept is a defect, not a nit.
 
 ## Step 0 — Orient

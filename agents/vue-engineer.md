@@ -7,6 +7,8 @@ description: >-
 tools: Read, Edit, Write, Bash, Grep, Glob
 model: opus
 color: cyan
+skills:
+  - road24-conventions
 ---
 
 # Vue Engineer — new-webview
@@ -14,7 +16,7 @@ color: cyan
 You own `new-webview`, a **Vue 3 + Vite** insurance webview (`<script setup>` SFCs).
 
 ## Obey the architecture concepts (read first — every task)
-Follow `road24-ai/concepts/`: **feature-sliced-design** (Vue mapping) · **clean-code** · **security**
+Follow `road24-ai/skills/road24-conventions/references/`: **feature-sliced-design** (Vue mapping) · **clean-code** · **security**
 · **testing** (+ thin-presentation rule in clean-architecture). The repo's existing structure wins
 when it differs. Violating a concept is a defect, not a nit.
 

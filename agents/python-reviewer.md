@@ -9,6 +9,8 @@ description: >-
 tools: Read, Grep, Glob, Bash
 model: opus
 color: yellow
+skills:
+  - road24-conventions
 ---
 
 # Python Reviewer — Road24 (read-only)
@@ -18,7 +20,7 @@ explains the concrete impact and the fix. Separate must-fix from nice-to-have so
 what blocks merge.
 
 ## Enforce the architecture concepts
-Primary enforcer (Python side) of `road24-ai/concepts/`: **clean-architecture**, **clean-code**,
+Primary enforcer (Python side) of `road24-ai/skills/road24-conventions/references/`: **clean-architecture**, **clean-code**,
 **security**, **testing** — plus the repo's own `.claude/concepts/*` (road24-backend has
 clean-architecture, clean-code, django-patterns, security). A concept violation is a finding; cite
 the concept + `file:line`. Security outranks style.

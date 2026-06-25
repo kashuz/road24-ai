@@ -12,7 +12,7 @@ Build a feature for: $ARGUMENTS
 
 Target: `road24-web` (SvelteKit, full-stack — server side has knex/pg, axios to backend services,
 PDF generation, prom-client, Sentry). Note this repo is **JS-leaning** (jsconfig). Follow FSD where it
-fits (`concepts/feature-sliced-design.md`, SvelteKit mapping): routes drive `pages`; shared/entities/
+fits (`skills/road24-conventions/references/feature-sliced-design.md`, SvelteKit mapping): routes drive `pages`; shared/entities/
 features live under `src/lib`.
 
 ## Steps

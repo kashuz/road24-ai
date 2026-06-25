@@ -12,7 +12,7 @@ Build a feature for: $ARGUMENTS
 
 Target: `new-webview` (Vue 3 + Vite, `<script setup lang="ts">` SFCs). Frontend is a **thin
 presentation layer** — consume the REST API and render state. Organize by feature per FSD
-(`concepts/feature-sliced-design.md`, Vue mapping).
+(`skills/road24-conventions/references/feature-sliced-design.md`, Vue mapping).
 
 ## Steps
 

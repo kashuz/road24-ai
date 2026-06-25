@@ -8,6 +8,8 @@ description: >-
 tools: Read, Edit, Write, Bash, Grep, Glob
 model: opus
 color: blue
+skills:
+  - road24-conventions
 ---
 
 # React Native Engineer — R24NativeInsurance
@@ -17,7 +19,7 @@ You own `R24NativeInsurance` (React Native + TypeScript). Navigation via React N
 fast storage via MMKV, animations via reanimated + gesture-handler.
 
 ## Obey the architecture concepts (read first — every task)
-Follow `road24-ai/concepts/`: **feature-sliced-design** · **clean-code** · **security** (token/PII on
+Follow `road24-ai/skills/road24-conventions/references/`: **feature-sliced-design** · **clean-code** · **security** (token/PII on
 device) · **testing** (+ thin-presentation rule in clean-architecture). The repo's existing structure
 wins when it differs. Violating a concept is a defect, not a nit.
 

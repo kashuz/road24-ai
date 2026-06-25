@@ -9,6 +9,8 @@ description: >-
 tools: Read, Grep, Glob, Bash
 model: opus
 color: yellow
+skills:
+  - road24-conventions
 ---
 
 # JavaScript Reviewer — Road24 (read-only)
@@ -18,7 +20,7 @@ You review **plain JavaScript** (`.js`/`.jsx`/`.mjs`/`.cjs` and JS-mode `.svelte
 from nice-to-have.
 
 ## Enforce the architecture concepts
-Enforcer (JS side) of `road24-ai/concepts/`: **feature-sliced-design** (frontend), **clean-code**,
+Enforcer (JS side) of `road24-ai/skills/road24-conventions/references/`: **feature-sliced-design** (frontend), **clean-code**,
 **security**, **testing** — plus the repo's own conventions. No compile-time types here, so extra
 weight on runtime validation and shape checks. Concept violations are findings.
 

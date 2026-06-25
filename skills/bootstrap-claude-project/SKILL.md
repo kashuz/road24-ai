@@ -30,28 +30,33 @@ and skills instead of generic ones.
    architecture/layering, and a short index of the agents + skills installed. Include the **Learning
    Rule** (persist user corrections to CLAUDE.md / concept / agent / skill so they're never repeated).
 
-4. **Install concepts** into `.claude/concepts/` — copy the binding rulebook the repo needs from
-   `road24-ai/concepts/` (backends: clean-architecture, clean-code, security, testing; frontends:
-   feature-sliced-design, clean-code, security, testing). Trim each to the repo's stack. Reference
-   them from the generated CLAUDE.md and ensure the installed agents point to them.
+4. **Install rules** into `.claude/rules/` — copy the path-scoped rule(s) for the repo's stack from
+   `road24-ai/rules/` (e.g. `backend-fastapi.md` OR `backend-django.md`, `frontend-react.md`,
+   `frontend-svelte.md`, `frontend-vue.md`, `backend-nestjs.md`, `mobile-flutter.md`, plus
+   `infra-k8s.md` if it has Docker/CI and `tests.md`). Keep the quoted `paths:` globs. These
+   auto-load by file path. Also copy the **`road24-conventions` skill** (with its `references/`) — the
+   deep rulebook — so agents preload it.
 
-5. **Install agents** into `.claude/agents/` — copy the relevant role agents from the hub
-   (`engineer`, `tester`, and the language-matched reviewer — `python-reviewer` / `typescript-reviewer`
-   / `javascript-reviewer` / `flutter-reviewer` — always; add `security-auditor` for services handling
-   auth/payments/PII, `devops` if it has Docker/CI, `architect`/`orchestrator` for larger repos).
-   Trim each to the detected stack so it's not carrying playbooks for stacks the repo doesn't use.
+5. **Install agents** into `.claude/agents/` — copy the relevant role agents from the hub: the
+   stack's engineer, `tester`, and the language-matched reviewer (`python-reviewer` /
+   `typescript-reviewer` / `javascript-reviewer` / `flutter-reviewer`) always; add `security-auditor`
+   for services handling auth/payments/PII, `devops` if it has Docker/CI, an architect/`orchestrator`
+   for larger repos. Trim each to the detected stack.
 
 6. **Install skills** into `.claude/skills/` — copy the scaffolding skills that match the stack
    (e.g. FastAPI: `new-fastapi-endpoint`/`-service`/`-repository`/`-pydantic-schema`; Django: the
-   `new-django-*` set; Nest: `new-nest-resource`; frontend: `new-react-feature`/`new-api-client`;
-   Flutter: `new-flutter-feature`).
+   `new-django-*` set; Nest: `new-nest-resource`; frontend: `new-react-feature`/`new-vue-feature`/
+   `new-svelte-feature`/`new-api-client`; Flutter: `new-flutter-feature`).
 
-7. **Report** — what stack was detected, which concepts/agents/skills were installed, and the commands
-   wired into CLAUDE.md.
+7. **Install hooks + settings** — copy `hooks/guard.sh` + `hooks/format.sh` (`chmod +x`, needs `jq`)
+   and a `settings.json` wiring them + sane model/permissions; add `settings.local.json.example`.
+
+8. **Report** — what stack was detected, which rules/agents/skills/hooks were installed, and the
+   commands wired into CLAUDE.md.
 
 ## Rules
 
-- Match what already exists — if the repo has a `.claude/` with conventions, extend, don't overwrite.
+- Match what already exists — if the repo has a `.claude/`, extend, don't overwrite.
 - The commands in CLAUDE.md must be the **real** ones from the repo, verified against its files.
-- Keep agents lean and stack-specific; don't dump every hub agent into every project.
-- Don't invent files the repo doesn't have (e.g. don't reference `concepts/*` unless you create them).
+- Keep agents/rules lean and stack-specific; don't dump every hub file into every project.
+- QUOTE rule `paths:` globs. Don't invent files the repo doesn't have.

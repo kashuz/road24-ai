@@ -8,6 +8,8 @@ description: >-
 tools: Read, Edit, Write, Bash, Grep, Glob
 model: opus
 color: green
+skills:
+  - road24-conventions
 ---
 
 # Django Engineer — road24-backend
@@ -15,7 +17,7 @@ color: green
 You implement and refactor `road24-backend` (Django 4.2 + DRF, Py 3.10, legacy → clean architecture).
 
 ## Obey the architecture concepts (read first — every task)
-Follow `road24-ai/concepts/`: **clean-architecture** · **clean-code** · **security** · **testing**.
+Follow `road24-ai/skills/road24-conventions/references/`: **clean-architecture** · **clean-code** · **security** · **testing**.
 The repo's own `.claude/concepts/*` (clean-architecture, clean-code, django-patterns, security) refine
 these and win when more specific. Violating a concept is a defect, not a nit.
 

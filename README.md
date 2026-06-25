@@ -27,17 +27,26 @@ road24-ai/
 │   ├── flutter-reviewer.md         # read-only review of .dart (BLoC, freezed, dio)
 │   ├── security-auditor.md      # white-box appsec audit (auth, payments, insurance, PII)
 │   └── devops.md                # Docker, CI/CD, k8s/manifests, releases
-├── concepts/                # the shared architecture rulebook — agents OBEY these
-│   ├── clean-architecture.md    # layering + dependency rule (backends + Flutter)
-│   ├── feature-sliced-design.md # FSD layers/slices/import-rule (frontends)
-│   ├── clean-code.md            # SOLID, DRY, KISS, YAGNI, style
-│   ├── security.md              # authz/IDOR, injection, secrets/PII, idempotency
-│   └── testing.md               # AAA, behavior-first, mock-at-boundaries
-├── skills/                  # user-invocable recipes (31) — see "Skills by category" below
+├── rules/                   # per-area conventions, AUTO-LOADED by file path (quoted globs)
+│   ├── _TEMPLATE.md
+│   ├── frontend-react.md       # "**/*.tsx" — React/RN/TS clients
+│   ├── frontend-svelte.md      # "**/*.svelte" — road24-web
+│   ├── frontend-vue.md         # "**/*.vue" — new-webview
+│   ├── backend-fastapi.md      # "**/*.py" — FastAPI services
+│   ├── backend-django.md       # "**/*.py" — road24-backend
+│   ├── backend-nestjs.md       # "**/*.ts" — nest-insurances
+│   ├── mobile-flutter.md       # "**/*.dart" — road24-mobile
+│   ├── infra-k8s.md            # Dockerfile/compose/k8s/helm/tf
+│   └── tests.md                # test files (pytest/jest/vitest/flutter_test)
+├── skills/                  # user-invocable recipes (33) — see "Skills by category" below
+│   └── road24-conventions/  #   the binding rulebook (references/) — preloaded into agents
 ├── knowledge/
 │   ├── platform-map.md      # the ecosystem: services, stacks, conventions, contracts
 │   └── projects/            # per-project deep-dives (one file per repo) + index
-└── CLAUDE.md                # how to use the hub + the learning rule
+├── hooks/                   # guard.sh (PreToolUse: block dangerous bash) · format.sh (PostToolUse)
+├── settings.json            # model, permissions (allow/deny), hook wiring
+├── settings.local.json.example  # personal overrides → copy to settings.local.json (gitignored)
+└── CLAUDE.md                # lean constitution + mental model + learning rule
 ```
 
 ## How it's organized
@@ -54,16 +63,20 @@ the `orchestrator`. **Reviewers are per language** — `python-reviewer`, `types
 `javascript-reviewer`, `flutter-reviewer` — so a mixed diff routes each file to the reviewer fluent in
 its language.
 
-**The `concepts/` rulebook is binding.** Every agent reads the concepts relevant to its work in
-"Step 0 — Orient" and obeys them — Clean Architecture (backends), Feature-Sliced Design (frontends),
-Clean Code/SOLID, Security, Testing. The per-language reviewers and `security-auditor` enforce them; a violation is a
-finding, not a style nit. A repo's own `.claude/concepts/*` win when more specific (precedence is in
-`concepts/README.md`).
+**Conventions live in two complementary places.** `rules/*` are short per-area coding conventions that
+**auto-load by file path** (edit a `.py` → the backend rule loads). The deep, cross-cutting rulebook
+(Clean Architecture, Feature-Sliced Design, Clean Code/SOLID, Security, Testing) lives in the
+**`road24-conventions` skill** `references/` — preloaded into the engineering agents so subagents get
+it too. Both are binding: per-language reviewers + `security-auditor` enforce them; a violation is a
+finding, not a style nit. A repo's own `.claude/` rules win when more specific.
+
+**Deterministic enforcement.** `hooks/guard.sh` blocks dangerous Bash (PreToolUse) and `format.sh`
+formats edited files (PostToolUse), wired in `settings.json` (needs `jq`).
 
 **Skills are stack-specific recipes** — scaffolding differs too much per stack to merge, so each layer
 of each stack gets its own `new-*` skill, plus cross-cutting workflow skills. See the full list below.
 
-## Skills by category (31)
+## Skills by category (33)
 
 **FastAPI services** (insurance, gateway, bff, localization, tinting, sdk)
 `new-fastapi-endpoint` · `new-fastapi-service` · `new-fastapi-repository` · `new-pydantic-schema` ·
@@ -90,7 +103,8 @@ of each stack gets its own `new-*` skill, plus cross-cutting workflow skills. Se
 `dockerize-service` · `new-ci-pipeline` · `new-k8s-manifest`
 
 **Workflow / cross-cutting**
-`cross-service-contract` · `commit-and-pr` · `security-audit` · `bootstrap-claude-project`
+`road24-conventions` (the universal rulebook, preloaded into agents) · `cross-service-contract` ·
+`commit-and-pr` · `security-audit` · `bootstrap-claude-project`
 
 ## Using it
 
