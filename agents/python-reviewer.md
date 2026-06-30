@@ -7,7 +7,7 @@ description: >-
   conformance. Use for "review this Python change/PR", "is this FastAPI/Django diff safe to merge".
   Never edits code; produces a prioritized, step-by-step, evidence-based report.
 tools: Read, Grep, Glob, Bash
-model: opus
+model: sonnet
 color: yellow
 ---
 
