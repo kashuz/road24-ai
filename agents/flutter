@@ -1,0 +1,148 @@
+---
+name: review-changes
+description: "Caveman-terse review of a GitHub PR for road24-mobile (Flutter). One line per finding. Checks bugs first, then feature-flag gating, asset wiring, core reuse, and AI-slop/unnecessary-comments. Use when user says 'review this PR', 'review PR #123', pastes a github.com/kashuz/road24-mobile PR URL, says 'caveman review', or invokes /review-changes."
+---
+
+# Review Changes (GitHub PR)
+
+Terse review of a GitHub pull request. One line per finding. Location, problem, fix. No praise, no throat-clearing.
+
+## Input — fetch PR via `gh` CLI
+
+- Repo: `kashuz/road24-mobile`.
+- Resolve PR number from user input:
+  - Bare number `123` / `#123` → PR number `123`.
+  - URL `https://github.com/kashuz/road24-mobile/pull/123` → number `123`.
+  - Branch name given, no number → `gh pr list --repo kashuz/road24-mobile --head <branch>`.
+  - Nothing given → `gh pr list --repo kashuz/road24-mobile --author @me --state open`, ask which.
+- Pull metadata + diff:
+  - `gh pr view <number> --repo kashuz/road24-mobile --json title,body,baseRefName,headRefName,url` — title, description, target branch, Jira ticket (title should start with `RDFT|YO|SUG|RD|LOAN-<number>`).
+  - `gh pr diff <number> --repo kashuz/road24-mobile` — the changes.
+  - Drop generated files from the diff before reviewing: `*.g.dart`, `*.freezed.dart`, `*.gr.dart`, `*.gen.dart`, `*.mocks.dart`, `*.config.dart`.
+  - Large PR → `gh pr diff <number> --repo kashuz/road24-mobile --patch` and page through, or fetch changed-file list first via `gh pr view <number> --json files`.
+- Confirm base branch is `ver/360` (project trunk, not `main`/`master`). Flag if not intended.
+- Not logged in → tell user to run `gh auth login`, stop.
+
+Read the full source of changed files (not just the hunk) when a finding needs surrounding context — the diff hunk alone hides null-init, disposal, and flag setup. Also check which architecture generation the file belongs to: `lib/features/**` (clean-arch, current) vs `lib/src/**` (legacy, still mounted). New business logic landing in `lib/src/` instead of `lib/features/<name>/` is itself a finding.
+
+## Output — where findings go
+
+- Default: print findings as terse list for the user to paste.
+- If user says "post" / "comment on the PR": post via `gh pr comment <number> --repo kashuz/road24-mobile --body "..."` (general comment; `gh` has no built-in per-line inline comment command — use `gh api repos/kashuz/road24-mobile/pulls/<number>/comments` with `path`/`line`/`commit_id` for true inline notes).
+- Never approve/merge (`gh pr review --approve`). Posting comments only when explicitly asked.
+
+## Output Format
+
+`<file>:L<line>: <emoji> <sev>: <problem>. <fix>.`
+
+Severity:
+- 🔴 `bug:` — broken behavior, crash, regression, will cause incident
+- 🟡 `risk:` — works but fragile (null-bang `!`, swallowed error, missing flag guard, race, `context` used after `await` without `mounted` check)
+- 🔵 `nit:` — style/naming/convention. Author may ignore
+- ❓ `q:` — genuine question
+
+Rank most-severe first. If nothing found in a section, say `OK` — one word.
+
+## Review Order (do all five, in order)
+
+### 1. Bug (main thing — spend most effort here)
+
+Find the real defect. Trace the changed logic:
+- Null safety: `!` operator on a value that can genuinely be null, unguarded `.first`/`[0]`, nullable after `.firstWhereOrNull`.
+- Wrong operator/boundary (`<` vs `<=`), inverted condition, off-by-one.
+- BLoC/Cubit: missing `emit`, stale `state` copy, un-awaited future, event not registered in `on<>`, missing `bloc_concurrency` transformer on an event-spammed handler.
+- `Either` fold: error branch swallowed or both branches emit same state.
+- Un-disposed subscriptions/controllers/`AnimationController`, un-cancelled timers.
+- Missing `mounted`/context-after-await checks (lint for this is off in `analysis_options.yaml`, so the analyzer won't catch it — check by hand).
+- Repo-specific gotchas: branching directly on `Theme.of(context).brightness` (it's inverted here — must use `ThemeModeX.isDark(context)` or `MyFunctions.isDarkMode()`); using `lib/assets/translations/uz.dart` expecting Latin or `oz.dart` expecting Cyrillic (names are swapped from what they suggest).
+
+State the failing input → wrong output. Do not report style as `bug:`.
+
+### 2. Feature flag gating
+
+New feature or behavior change that alters an existing flow, could regress existing users, or needs a kill switch → **must** be flag-gated.
+
+Verify:
+- Flag declared in `FeatureId` enum — `lib/app/feature_ids.dart`.
+- Kill-switch (ON by default, someone can turn it off) → `isReversedFlag: true`; gradual rollout (OFF by default) → default `isReversedFlag: false`.
+- Convenience fn present below enum: `bool xEnabled(BuildContext? context) => isFeatureEnabled(context, FeatureId.x);`.
+- Behavior actually gated: `if (xEnabled(context)) { new } else { old }` — old path preserved, not deleted.
+- Flag is backed by `package:feature_flags` (`Features`/`FlagsStore`, wired at app root in `lib/my_app.dart`) — toggle should show up in the in-app debug screen (`lib/src/screens/debug_screen/feature_flags_screen.dart`).
+
+Finding examples:
+- `🔴 bug: new logout path replaces old with no flag. Add FeatureId.logoutX + gate.`
+- `🟡 risk: flag miniSeries added but else-branch removed. Keep old behavior.`
+- Change is trivial/UI-only, needs no flag → `flag: OK (not needed)`.
+
+### 3. Assets added correctly
+
+If diff adds images/icons/lottie/svg/fonts:
+- File committed under `lib/assets/` and declared in root `pubspec.yaml` under `assets:` (currently `assets/svg/`, `assets/png/` — new subfolder needs its own entry, or fits an existing declared folder).
+- Referenced via the generated `Assets` accessor (`lib/gen/assets.gen.dart`, built by `flutter_gen` — check `dart run build_runner build` or the FlutterGen build step was re-run after adding the file), not a raw string literal.
+- SVG icon → rendered with `flutter_svg`/`vector_graphics` widget (the generated `.svg()`/`AssetGenImage` helper), not a bare `Image.asset('assets/...')`.
+- No orphan: asset added but unused, or referenced but missing from `pubspec.yaml`/not regenerated in `assets.gen.dart`.
+
+Findings:
+- `🔴 bug: 'assets/svg/ic_new.svg' used but assets.gen.dart not regenerated. Run flutter pub run build_runner build (or FlutterGen) and commit.`
+- `🔵 nit: raw string 'assets/svg/...'. Use Assets.svg.icNew instead.`
+- No asset changes → `assets: OK (none)`.
+
+### 4. Core reuse
+
+Before flagging duplication, check if it already exists in `lib/design_system/` (colors, typography, `ThemeData`, components under `design_system/components/**`, tokens) or `lib/features/common/`:
+- Design tokens/spacing/radius: `lib/design_system/tokens/`.
+- Shared widgets: `design_system/components/{button,field,chip,surface,feedback,list,avatar,overlay,badge}`.
+- Theme helpers: `design_system/utils/` (`ThemeModeX.isDark`), `design_system/theme/theme_extensions/`.
+- Cross-feature shared logic: `lib/features/common/`.
+- Legacy shared helpers (still live, don't duplicate blindly): `lib/services/`, `lib/core/exceptions/my_functions.dart`.
+
+Findings:
+- `🔴 dup: hand-rolled bottom sheet. Use design_system/components/overlay equivalent.`
+- `🔵 nit: hardcoded EdgeInsets.all(16). Use a design_system token instead.`
+- New business logic added under `lib/src/` instead of `lib/features/<name>/` → flag it (migration direction, not a hard block — check `CLAUDE.md`/`AGENTS.md` for current guidance).
+- Nothing duplicated → `core-reuse: OK`.
+
+### 5. AI slop & unnecessary comments
+
+Diff smells like unreviewed AI output → flag it. Per `CLAUDE.md`: no comments unless WHY is non-obvious, no premature abstraction, no defensive code for cases that can't happen, no half-finished stubs.
+
+Check:
+- Comment restates the code (`// increment counter` above `counter++`, `// build the widget` above a `build()` override) → dead weight, remove.
+- Comment references the task/fix/caller (`// fix for RDFT-1234`, `// used by garage sync`, `// added per PR review`) → belongs in commit msg/PR body, not code. Remove.
+- Doc-comment block (`///`) on a private/one-off method restating param names with no new info → remove or trim to the one non-obvious line.
+- Defensive `try/catch`, null-check, or `if` guarding a state that the surrounding code already guarantees can't occur (e.g. re-checking a value right after asserting it) → smells like AI hedging. Confirm the case is actually reachable; if not, flag.
+- New helper/abstraction (extra class, wrapper fn, config object) used exactly once, no other caller, no stated future need → premature abstraction, inline it.
+- Repeated near-identical block copy-pasted 2-3x where a shared fn would read the same → flag if it hides real duplication (not stylistic 3-liner CLAUDE.md already allows).
+- `TODO`/`FIXME`/placeholder body (`throw UnimplementedError()`, empty `catch (_) {}`, commented-out old code left in) → blocker, not shippable.
+- Left-over debug output (`print(...)`, stray `debugPrint`) outside existing logging conventions.
+
+Findings:
+- `🔵 nit: comment "// call the repository" restates line below. Remove.`
+- `🟡 risk: try/catch swallows error silently, no logging, no rethrow — looks like AI hedge, not intentional. Confirm reachable, else remove catch.`
+- `🔵 nit: 'GarageSyncHelper' wraps one call, used once. Inline into caller.`
+- `🔴 bug: catch (_) {} — empty stub, error disappears silently.`
+- Clean, no slop → `slop: OK`.
+
+## Rules
+
+- Exact line numbers, exact symbol names in backticks.
+- Concrete fix, not "consider refactoring".
+- The *why* only if not obvious from the problem.
+- Drop hedging ("perhaps", "maybe"). Unsure → `q:`.
+- Do not restate what the line does.
+
+## Boundaries
+
+Review only. Do not write the fix, do not approve/reject, do not run codegen. Output findings ready to paste. Security findings get a full paragraph (not one-liner), then resume terse.
+
+## Example Output
+
+```
+lib/features/attorney/data/repositories/attorney_repository_impl.dart:L48: 🔴 bug: `doc!` after firstWhereOrNull can be null → crash on empty list. Guard before deref.
+lib/features/garage/presentation/bloc/garage_bloc.dart:L72: 🟡 risk: new auto-sync path not flag-gated. Add FeatureId + kill switch.
+flag: 1 finding above
+assets: OK (none)
+lib/features/garage/presentation/widgets/loading_shimmer.dart:L12: 🔵 dup: hand-rolled shimmer. Reuse a design_system loading component.
+lib/features/garage/data/repositories/garage_repository_impl.dart:L30: 🔵 nit: comment "// fetch garage from remote" restates line below. Remove.
+slop: 1 finding above
+```
